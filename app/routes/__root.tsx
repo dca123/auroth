@@ -5,7 +5,21 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import appCss from "@/styles/app.css?url";
+import appCss from "@/styles/globals.css?url";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ModeToggle } from "@/components/mode-toggle";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarInput,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { Separator } from "@/components/ui/separator";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -18,7 +32,7 @@ export const Route = createRootRoute({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "TanStack Start Starter",
+        title: "Auroth",
       },
     ],
     links: [
@@ -45,10 +59,36 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       <head>
         <HeadContent />
       </head>
-      <body>
-        {children}
+      <body className="bg-stone-50">
+        <SidebarProvider>
+          <AppSidebar />
+          <main className="flex flex-col w-full p-2">
+            <div className="flex flex-row space-x-1 items-center">
+              <SidebarTrigger />
+              <h1 className="font-semibold tracking-wide">Auroth</h1>
+            </div>
+            <Separator className="my-3" orientation="horizontal" />
+            {children}
+          </main>
+        </SidebarProvider>
         <Scripts />
       </body>
     </html>
+  );
+}
+
+function AppSidebar() {
+  return (
+    <Sidebar>
+      <SidebarContent>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <a>Chats</a>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarContent>
+    </Sidebar>
   );
 }
