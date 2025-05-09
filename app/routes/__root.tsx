@@ -6,6 +6,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import appCss from "@/styles/globals.css?url";
+import favicon from "@/static/favicon.ico?url";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
 import {
@@ -39,6 +40,10 @@ export const Route = createRootRoute({
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      {
+        rel: "icon",
+        href: favicon,
       },
     ],
   }),
