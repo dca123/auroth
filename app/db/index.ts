@@ -1,9 +1,9 @@
 import { drizzle } from "drizzle-orm/libsql";
-import { dbCredentials } from "./load-credentials";
+import { env } from "env";
 
 export const db = drizzle({
   connection: {
-    url: dbCredentials.url,
-    authToken: dbCredentials.token,
+    url: env.TURSO_URL,
+    authToken: env.TURSO_KEY,
   },
 });

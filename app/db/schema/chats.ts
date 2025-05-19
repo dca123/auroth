@@ -1,7 +1,17 @@
-import { Message } from "ai";
-import { sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { type Message } from "ai";
+import { sql } from "drizzle-orm";
+import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
 
+type SimplifiedMessage = Pick<Message, "id" | "role" | "createdAt">;
 export const chats = sqliteTable("chats", {
-  id: text("id"),
-  messages: text("messages", { mode: "json" }).$type<Message[]>(),
+  id: text("id").primaryKey(),
+  messages: text("messages", { mode: "json" })
+    .notNull()
+    .$type<SimplifiedMessage[]>(),
+  createdAt: integer("timestamp3", { mode: "number" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+  updatedAt: integer("timestamp3", { mode: "number" })
+    .notNull()
+    .default(sql`(unixepoch())`),
 });

@@ -7,8 +7,6 @@ import {
 } from "@tanstack/react-router";
 import appCss from "@/styles/globals.css?url";
 import favicon from "@/static/favicon.ico?url";
-import { ThemeProvider } from "@/components/theme-provider";
-import { ModeToggle } from "@/components/mode-toggle";
 import {
   Sidebar,
   SidebarContent,
@@ -21,6 +19,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
+import { getChatIds } from "@/server-functions/chats";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -48,6 +47,9 @@ export const Route = createRootRoute({
     ],
   }),
   component: RootComponent,
+  loader: async () => {
+    return await getChatIds();
+  },
 });
 
 function RootComponent() {
@@ -83,15 +85,23 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
 }
 
 function AppSidebar() {
+  const data = Route.useLoaderData();
   return (
     <Sidebar>
       <SidebarContent>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <a>Chats</a>
+              <a href="/">Chats</a>
             </SidebarMenuButton>
           </SidebarMenuItem>
+          {data.map((c) => (
+            <SidebarMenuItem key={c.id}>
+              <SidebarMenuButton asChild>
+                <a href={`/chats/${c.id}`}>{c.id}</a>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
         </SidebarMenu>
       </SidebarContent>
     </Sidebar>
