@@ -1,58 +1,24 @@
-import { generateId, Message } from "ai";
-import { existsSync, mkdirSync, writeFileSync } from "fs";
-import { readFile, writeFile } from "fs/promises";
-import path from "path";
+import { db } from "@/db";
+import { chats } from "@/db/schema/chats";
+import { eq } from "drizzle-orm";
+import { Message } from "ai";
+import { streams } from "@/db/schema/streams";
 
-// example implementation for demo purposes
-// in a real app, you would save the chat to a database
-// and use the id from the database entry
-
-export async function createChat(): Promise<string> {
-  const id = generateId();
-  await writeFile(getChatFile(id), "[]");
-  return id;
+export async function storeChat(id: string, messages: Message[]) {
+  const r = await db.insert(chats).values({ id, messages }).onConflictDoUpdate({
+    target: chats.id,
+    set: {
+      messages,
+    },
+  });
 }
 
-export async function saveChat({
-  id,
-  messages,
-}: {
-  id: string;
-  messages: Message[];
-}): Promise<void> {
-  await writeFile(getChatFile(id), JSON.stringify(messages, null, 2));
-}
-
-export async function appendMessageToChat({
-  chatId,
-  message,
-}: {
-  chatId: string;
-  message: Message;
-}): Promise<void> {
-  console.log("test");
-  const file = getChatFile(chatId);
-  const messages = await loadChat(chatId);
-  messages.push(message);
-  await writeFile(file, JSON.stringify(messages, null, 2));
-}
-
-export async function loadChat(id: string): Promise<Message[]> {
-  return JSON.parse(await readFile(getChatFile(id), "utf8"));
-}
-
-function getChatFile(id: string): string {
-  const chatDir = path.join(process.cwd(), ".chats");
-
-  if (!existsSync(chatDir)) mkdirSync(chatDir, { recursive: true });
-
-  const chatFile = path.join(chatDir, `${id}.json`);
-
-  if (!existsSync(chatFile)) {
-    writeFileSync(chatFile, "[]");
+export async function getChat(id: string) {
+  const chat = await db.select().from(chats).where(eq(chats.id, id));
+  if (chat.length < 1) {
+    return [];
   }
-
-  return chatFile;
+  return chat;
 }
 
 export async function appendStreamId({
@@ -62,20 +28,16 @@ export async function appendStreamId({
   chatId: string;
   streamId: string;
 }) {
-  const file = getStreamsFile(chatId);
-  const streams = await loadStreams(chatId);
-  streams.push(streamId);
-  await writeFile(file, JSON.stringify(streams, null, 2));
+  await db.insert(streams).values({
+    id: streamId,
+    chat_id: chatId,
+  });
 }
 
-export async function loadStreams(chatId: string): Promise<string[]> {
-  const file = getStreamsFile(chatId);
-  if (!existsSync(file)) return [];
-  return JSON.parse(await readFile(file, "utf8"));
-}
-
-function getStreamsFile(chatId: string): string {
-  const chatDir = path.join(process.cwd(), ".streams");
-  if (!existsSync(chatDir)) mkdirSync(chatDir, { recursive: true });
-  return path.join(chatDir, `${chatId}.json`);
+export async function loadStreams(chatId: string) {
+  const result = await db
+    .select()
+    .from(streams)
+    .where(eq(streams.chat_id, chatId));
+  return result;
 }

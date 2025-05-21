@@ -8,10 +8,10 @@ export const chats = sqliteTable("chats", {
   messages: text("messages", { mode: "json" })
     .notNull()
     .$type<SimplifiedMessage[]>(),
-  createdAt: integer("timestamp3", { mode: "number" })
+  createdAt: integer("created_at", { mode: "number" })
     .notNull()
     .default(sql`(unixepoch())`),
-  updatedAt: integer("timestamp3", { mode: "number" })
+  updatedAt: integer("updated_at", { mode: "number" })
     .notNull()
     .default(sql`(unixepoch())`),
 });

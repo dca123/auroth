@@ -3,36 +3,20 @@ import {
   appendResponseMessages,
   createDataStream,
   generateId,
-  Message,
   streamText,
 } from "ai";
 import { openai } from "@ai-sdk/openai";
-import { db } from "@/db";
-import { chats } from "@/db/schema/chats";
 import { createResumableStreamContext } from "resumable-stream";
 import { waitUntil } from "@vercel/functions";
-import { appendStreamId, loadStreams } from "@/lib/chat-store";
-import { eq } from "drizzle-orm";
-
-async function storeChat(id: string, messages: Message[]) {
-  const r = await db.insert(chats).values({ id, messages }).onConflictDoUpdate({
-    target: chats.id,
-    set: {
-      messages,
-    },
-  });
-}
-
-async function getChat(id: string) {
-  const chat = await db.select().from(chats).where(eq(chats.id, id));
-  if (chat.length < 1) {
-    return [];
-  }
-  return chat;
-}
+import {
+  appendStreamId,
+  getChat,
+  loadStreams,
+  storeChat,
+} from "@/lib/chat-store";
 
 export const APIRoute = createAPIFileRoute("/api/chat")({
-  POST: async ({ request, params }) => {
+  POST: async ({ request }) => {
     const streamContext = createResumableStreamContext({
       waitUntil,
     });
@@ -62,9 +46,7 @@ export const APIRoute = createAPIFileRoute("/api/chat")({
       await streamContext.resumableStream(streamId, () => stream),
     );
   },
-  GET: async ({ params, request }) => {
-    console.log(request.url);
-    const prom = () => new Promise(() => {});
+  GET: async ({ request }) => {
     const streamContext = createResumableStreamContext({
       waitUntil,
     });
@@ -78,7 +60,7 @@ export const APIRoute = createAPIFileRoute("/api/chat")({
     if (!streamIds.length) {
       return new Response("No Streams found", { status: 404 });
     }
-    const lastStreamId = streamIds.at(-1);
+    const lastStreamId = streamIds.at(-1)?.id;
     if (!lastStreamId) {
       return new Response("No recent stream found", { status: 404 });
     }
