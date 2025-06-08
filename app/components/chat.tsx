@@ -4,6 +4,7 @@ import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
+import { useAutoResume } from "@/hooks/use-auto-resume";
 
 export function Chat(props: {
   chat?: Awaited<ReturnType<typeof getChat>>;
@@ -16,6 +17,8 @@ export function Chat(props: {
     handleInputChange,
     id,
     experimental_resume,
+    setMessages,
+    data,
   } = useChat({
     id: props.id,
     initialMessages: props.chat?.[0]?.messages as Message[],
@@ -35,9 +38,18 @@ export function Chat(props: {
     }
     return handleSubmit(e);
   }
+
   useEffect(() => {
     experimental_resume();
   }, []);
+
+  //useAutoResume({
+  //  autoResume: true,
+  //  initialMessages: (props.chat?.[0]?.messages ?? []) as Message[],
+  //  experimental_resume,
+  //  data,
+  //  setMessages,
+  //});
 
   return (
     <div className="relative h-full">

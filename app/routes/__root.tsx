@@ -98,7 +98,9 @@ function AppSidebar() {
           {data.map((c) => (
             <SidebarMenuItem key={c.id}>
               <SidebarMenuButton asChild>
-                <a href={`/chats/${c.id}`}>{c.id}</a>
+                <a href={`/chats/${c.id}`}>
+                  {truncateString(c.messages.at(0)?.content as string, 25)}
+                </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
@@ -106,4 +108,13 @@ function AppSidebar() {
       </SidebarContent>
     </Sidebar>
   );
+}
+
+function truncateString(str: string, targetLength: number) {
+  const ellipsis = "...";
+  if (str.length <= targetLength) {
+    return str;
+  }
+  const truncated = str.slice(0, targetLength - ellipsis.length) + ellipsis;
+  return truncated.length < str.length ? truncated : str;
 }

@@ -7,6 +7,7 @@ export const env = createEnv({
     TURSO_KEY: z.string().min(1),
     TURSO_URL: z.string().min(1),
     REDIS_URL: z.string().min(1),
+    POSTGRES_DATABASE_URL: z.string().min(1),
   },
 
   /**

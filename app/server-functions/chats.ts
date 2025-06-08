@@ -17,6 +17,7 @@ export const getChatIds = createServerFn().handler(async () => {
   const ids = await db
     .select({
       id: chats.id,
+      messages: chats.messages,
     })
     .from(chats)
     .orderBy(desc(chats.createdAt))

@@ -3,9 +3,8 @@ import {
   appendResponseMessages,
   createDataStream,
   generateId,
-  streamText,
+  LangChainAdapter,
 } from "ai";
-import { openai } from "@ai-sdk/openai";
 import { createResumableStreamContext } from "resumable-stream";
 import { waitUntil } from "@vercel/functions";
 import {
@@ -14,6 +13,8 @@ import {
   loadStreams,
   storeChat,
 } from "@/lib/chat-store";
+import { query } from "@/lib/sql-ai";
+import { transformMessages } from "@/lib/ai-sdk-to-langchain-message";
 
 export const APIRoute = createAPIFileRoute("/api/chat")({
   POST: async ({ request }) => {
@@ -23,57 +24,94 @@ export const APIRoute = createAPIFileRoute("/api/chat")({
     const { messages, id } = await request.json();
     const streamId = generateId();
     await appendStreamId({ chatId: id, streamId });
+    console.log("appended stream id", streamId);
+    const transformedMessages = transformMessages(messages);
+    const result = await query(id, transformedMessages);
+    const reader = result.getReader();
+    const langchainReadableStream = new ReadableStream<string>({
+      start(controller) {
+        return pump();
+        function pump() {
+          return reader.read().then(({ done, value }) => {
+            console.log("streaming", done);
+            //console.log("streaming", done, value);
+            if (done) {
+              controller.close();
+              return;
+            }
 
-    const stream = createDataStream({
-      execute: (stream) => {
-        const result = streamText({
-          model: openai("gpt-4o-mini"),
-          messages,
-          async onFinish({ response }) {
-            await storeChat(
-              id,
-              appendResponseMessages({
-                messages,
-                responseMessages: response.messages,
-              }),
-            );
-          },
-        });
-        result.mergeIntoDataStream(stream);
+            if (value.answer) {
+              controller.enqueue(value.answer);
+            }
+
+            return pump();
+          });
+        }
       },
     });
+    const stream = createDataStream({
+      execute: async (stream) => {
+        console.log("success");
+        LangChainAdapter.mergeIntoDataStream(langchainReadableStream, {
+          dataStream: stream,
+          callbacks: {
+            async onFinal(completion) {
+              await storeChat(
+                id,
+                appendResponseMessages({
+                  messages,
+                  responseMessages: [
+                    {
+                      content: completion,
+                      role: "assistant",
+                      id: generateId(),
+                    },
+                  ],
+                }),
+              );
+            },
+          },
+        });
+      },
+    });
+    console.log("returned post request");
     return new Response(
-      await streamContext.resumableStream(streamId, () => stream),
+      await streamContext.createNewResumableStream(streamId, () => stream),
     );
   },
   GET: async ({ request }) => {
+    const { searchParams } = new URL(request.url);
     const streamContext = createResumableStreamContext({
       waitUntil,
     });
-    const { searchParams } = new URL(request.url);
     const chatId = searchParams.get("chatId");
 
     if (!chatId) {
+      console.log("id is required");
       return new Response("id is required", { status: 400 });
     }
     const streamIds = await loadStreams(chatId);
     if (!streamIds.length) {
+      console.log("No Streams found");
       return new Response("No Streams found", { status: 404 });
     }
     const lastStreamId = streamIds.at(-1)?.id;
     if (!lastStreamId) {
+      console.log("No recent stream found");
       return new Response("No recent stream found", { status: 404 });
     }
+    console.log("lastStreamId", lastStreamId);
+
     const emptyDataStream = createDataStream({
       execute: () => {},
     });
-    const stream = await streamContext.resumableStream(
-      lastStreamId,
-      () => emptyDataStream,
-    );
+    const stream = await streamContext.resumeExistingStream(lastStreamId);
     if (stream) {
+      console.log("found stream");
       return new Response(stream, { status: 200 });
     }
+
+    console.log("stream is already done");
 
     const [chat] = await getChat(chatId);
     console.log("result", chat);
@@ -84,7 +122,7 @@ export const APIRoute = createAPIFileRoute("/api/chat")({
     const streamWithMessage = createDataStream({
       execute: (b) => {
         b.writeData({
-          type: "append-data",
+          type: "append-message",
           message: JSON.stringify(lastMessage),
         });
       },
