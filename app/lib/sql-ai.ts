@@ -8,7 +8,7 @@ import { DataSource } from "typeorm";
 import { SqlDatabase } from "langchain/sql_db";
 import { QuerySqlTool } from "langchain/tools/sql";
 import { StateGraph } from "@langchain/langgraph";
-import { AIMessage, BaseMessage, HumanMessage } from "@langchain/core/messages";
+import { BaseMessage, HumanMessage } from "@langchain/core/messages";
 import { env } from "env";
 
 const datasource = new DataSource({
@@ -122,5 +122,13 @@ export async function query(chatId: string, messages: BaseMessage[]) {
       },
     },
   );
-  return stream;
+
+  const streamTransformer = new TransformStream<{ answer?: string }, string>({
+    transform(chunk, controller) {
+      if (chunk.answer) {
+        controller.enqueue(chunk.answer);
+      }
+    },
+  });
+  return stream.pipeThrough(streamTransformer);
 }

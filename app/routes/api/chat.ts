@@ -13,7 +13,7 @@ import {
   loadStreams,
   storeChat,
 } from "@/lib/chat-store";
-import { query } from "@/lib/sql-ai";
+import { query } from "@/lib/sql-agent-ai";
 import { transformMessages } from "@/lib/ai-sdk-to-langchain-message";
 
 export const APIRoute = createAPIFileRoute("/api/chat")({
@@ -27,32 +27,10 @@ export const APIRoute = createAPIFileRoute("/api/chat")({
     console.log("appended stream id", streamId);
     const transformedMessages = transformMessages(messages);
     const result = await query(id, transformedMessages);
-    const reader = result.getReader();
-    const langchainReadableStream = new ReadableStream<string>({
-      start(controller) {
-        return pump();
-        function pump() {
-          return reader.read().then(({ done, value }) => {
-            console.log("streaming", done);
-            //console.log("streaming", done, value);
-            if (done) {
-              controller.close();
-              return;
-            }
-
-            if (value.answer) {
-              controller.enqueue(value.answer);
-            }
-
-            return pump();
-          });
-        }
-      },
-    });
     const stream = createDataStream({
       execute: async (stream) => {
         console.log("success");
-        LangChainAdapter.mergeIntoDataStream(langchainReadableStream, {
+        LangChainAdapter.mergeIntoDataStream(result, {
           dataStream: stream,
           callbacks: {
             async onFinal(completion) {
