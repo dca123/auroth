@@ -1,17 +1,20 @@
 import { OpenAIEmbeddings } from "@langchain/openai";
-import { createRetrieverTool } from "langchain/tools/retriever";
+import { LLMChain } from "langchain/chains";
+import { PromptTemplate } from "langchain/prompts";
 import { Document } from "@langchain/core/documents";
 import { SqlDatabase } from "langchain/sql_db";
 import { DataSource } from "typeorm";
 import { MemoryVectorStore } from "langchain/vectorstores/memory";
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
-import { query } from "./sql-agent-ai";
+import { spawnSync } from "child_process";
 
+// --- Database & Retriever Setup ---
 const datasource = new DataSource({
   type: "sqlite",
   database: "dota.db",
 });
+await datasource.initialize();
 
 const db = await SqlDatabase.fromDataSourceParams({
   appDataSource: datasource,
@@ -21,20 +24,18 @@ async function queryAsList(
   database: SqlDatabase,
   query: string,
 ): Promise<string[]> {
-  const res: Array<{ [key: string]: string }> = JSON.parse(
-    await database.run(query),
-  )
+  const rowsJson = await database.run(query);
+  const rows = JSON.parse(rowsJson)
     .flat()
-    .filter((el: any) => el != null);
+    .filter((item: any) => item != null);
 
-  const justValues: Array<string> = res
-    .map((item) =>
-      Object.values(item)[0]
+  return rows
+    .map((row: Record<string, string>) =>
+      Object.values(row)[0]
         .replace(/\b\d+\b/g, "")
         .trim(),
     )
-    .filter((e) => e !== "");
-  return justValues;
+    .filter((value) => value !== "");
 }
 
 function convertToDocument(opts: {
@@ -45,57 +46,34 @@ function convertToDocument(opts: {
 }
 
 async function properNounsDocuments() {
-  const heroes = (await queryAsList(db, "SELECT display_name from heroes")).map(
-    (pageContent: string) =>
-      convertToDocument({
-        pageContent,
-        metadata: { columnName: "display_name", table: "heroes" },
-      }),
-  );
+  const heroes = await queryAsList(db, "SELECT display_name FROM heroes");
+  const items = await queryAsList(db, "SELECT display_name FROM items");
+  const players = await queryAsList(db, "SELECT name FROM team_players");
+  const teams = await queryAsList(db, "SELECT name FROM teams");
 
-  const items = (await queryAsList(db, "SELECT display_name from items")).map(
-    (pageContent: string) =>
-      convertToDocument({
-        pageContent,
-        metadata: { columnName: "display_name", table: "items" },
-      }),
-  );
-
-  const playerNames = (
-    await queryAsList(db, "SELECT name from team_players")
-  ).map((pageContent: string) =>
-    convertToDocument({
-      pageContent,
-      metadata: { columnName: "name", table: "team_players" },
-    }),
-  );
-
-  const teams = (await queryAsList(db, "SELECT name from teams")).map(
-    (pageContent: string) =>
-      convertToDocument({
-        pageContent,
-        metadata: { columnName: "name", table: "team" },
-      }),
-  );
-
-  const properNouns = heroes.concat(items, playerNames, teams);
-  return properNouns;
+  return [
+    ...heroes.map((name) => convertToDocument({ pageContent: name, metadata: { table: "heroes", columnName: "display_name" } })),
+    ...items.map((name) => convertToDocument({ pageContent: name, metadata: { table: "items", columnName: "display_name" } })),
+    ...players.map((name) => convertToDocument({ pageContent: name, metadata: { table: "team_players", columnName: "name" } })),
+    ...teams.map((name) => convertToDocument({ pageContent: name, metadata: { table: "teams", columnName: "name" } })),
+  ];
 }
 
-const embeddings = new OpenAIEmbeddings({
-  model: "text-embedding-3-large",
-});
-
+// Embedding-based retriever for proper nouns
+const embeddings = new OpenAIEmbeddings({ model: "text-embedding-3-large" });
 const vectorStore = new MemoryVectorStore(embeddings);
-const documents = await properNounsDocuments();
-await vectorStore.addDocuments(documents);
-
+try {
+  const docs = await properNounsDocuments();
+  await vectorStore.addDocuments(docs);
+} catch (e) {
+  console.error("error adding documents to vector store:", e);
+}
 const retriever = vectorStore.asRetriever(5);
-export const retrieverTool = tool(
-  async (opts) => {
-    const result = await retriever.invoke(opts.query);
-    console.log(result);
-    return result
+
+export const searchProperNouns = tool(
+  async ({ query }) => {
+    const results = await retriever.getRelevantDocuments(query);
+    return results
       .map(
         (doc, idx) =>
           `Result ${idx + 1}:\nContent: ${doc.pageContent}\nMetadata: ${JSON.stringify(doc.metadata)}`,
@@ -105,20 +83,27 @@ export const retrieverTool = tool(
   {
     name: "searchProperNouns",
     description:
-      "Use to look up values to filter on. Input is an approximate spelling " +
-      "of the proper noun, output is valid proper nouns. Use the noun most " +
-      "similar to the search.",
-    schema: z.object({
-      query: z.string().describe("The proper noun to search for"),
-    }),
+      "lookup approximate spellings of heroes, items, players, or teams and return the best matches.",
+    schema: z.object({ query: z.string().describe("fuzzy proper noun") }),
   },
 );
 
-//
-//export const retrieverTool = createRetrieverTool(retriever, {
-//  name: "searchProperNouns",
-//  description:
-//    "Use to look up values to filter on. Input is an approximate spelling " +
-//    "of the proper noun, output is valid proper nouns. Use the noun most " +
-//    "similar to the search.",
-//});
+// --- Named Entity Recognition Tool (using NLTK via Python) ---
+// requires a `ner.py` script alongside this file that reads text from stdin and outputs JSON.
+export const extractNamedEntities = tool(
+  ({ text }) => {
+    const py = spawnSync("python3", ["./ner.py"], { input: text, encoding: "utf-8" });
+    if (py.error) throw py.error;
+    const raw = py.stdout.trim();
+    try {
+      return JSON.parse(raw) as Array<{ entity: string; type: string }>;
+    } catch (err) {
+      throw new Error(`failed to parse NER output: ${raw}`);
+    }
+  },
+  {
+    name: "extractNamedEntities",
+    description: "extract named entities from text using NLTK, returning [{entity,type}].",
+    schema: z.object({ text: z.string().describe("input text for NER") }),
+  },
+);
