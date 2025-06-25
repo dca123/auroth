@@ -1,0 +1,58 @@
+{
+  "/Users/devinda/Projects/auroth/app/styles/globals.css": {
+    "file": "assets/globals-D6HkDWoV.css",
+    "src": "/Users/devinda/Projects/auroth/app/styles/globals.css"
+  },
+  "_chat-Cw1KMAbi.js": {
+    "file": "assets/chat-Cw1KMAbi.js",
+    "name": "chat",
+    "imports": [
+      "_ssr-CFvDa_fU.js"
+    ]
+  },
+  "_ssr-CFvDa_fU.js": {
+    "file": "assets/ssr-CFvDa_fU.js",
+    "name": "ssr",
+    "dynamicImports": [
+      "app/routes/index.tsx?tsr-split=component",
+      "app/routes/chats.$chatId.tsx?tsr-split=component"
+    ],
+    "assets": [
+      "assets/favicon-C9oVrUlm.ico",
+      "assets/globals-D6HkDWoV.css"
+    ]
+  },
+  "app/routes/chats.$chatId.tsx?tsr-split=component": {
+    "file": "assets/chats._chatId-B0GdRpSa.js",
+    "name": "chats._chatId",
+    "src": "app/routes/chats.$chatId.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_chat-Cw1KMAbi.js",
+      "_ssr-CFvDa_fU.js"
+    ]
+  },
+  "app/routes/index.tsx?tsr-split=component": {
+    "file": "assets/index-O3HL1LOB.js",
+    "name": "index",
+    "src": "app/routes/index.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_chat-Cw1KMAbi.js",
+      "_ssr-CFvDa_fU.js"
+    ]
+  },
+  "app/static/favicon.ico": {
+    "file": "assets/favicon-C9oVrUlm.ico",
+    "src": "app/static/favicon.ico"
+  },
+  "virtual:$vinxi/handler/ssr": {
+    "file": "ssr.js",
+    "name": "ssr",
+    "src": "virtual:$vinxi/handler/ssr",
+    "isEntry": true,
+    "imports": [
+      "_ssr-CFvDa_fU.js"
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "_index-BJ0g3EOC.js": {
+    "file": "assets/index-BJ0g3EOC.js",
+    "name": "index",
+    "dynamicImports": [
+      "app/routes/api/chat.ts?pick=APIRoute",
+      "app/routes/api/chat.ts?pick=APIRoute"
+    ]
+  },
+  "app/routes/api/chat.ts?pick=APIRoute": {
+    "file": "chat.js",
+    "name": "chat",
+    "src": "app/routes/api/chat.ts?pick=APIRoute",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-BJ0g3EOC.js"
+    ]
+  },
+  "virtual:$vinxi/handler/api": {
+    "file": "api.js",
+    "name": "api",
+    "src": "virtual:$vinxi/handler/api",
+    "isEntry": true,
+    "imports": [
+      "_index-BJ0g3EOC.js"
+    ]
+  }
+}
