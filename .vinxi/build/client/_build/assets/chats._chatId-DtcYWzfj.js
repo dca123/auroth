@@ -1,1 +1,0 @@
-import{R as t,j as s}from"./client-Dvx2FSzP.js";import{C as n}from"./chat-DeSA16R-.js";const c=function(){const o=t.useLoaderData(),{chatId:a}=t.useParams();return s.jsx(n,{chat:o,id:a})};export{c as component};
