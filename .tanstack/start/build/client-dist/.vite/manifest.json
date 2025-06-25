@@ -1,6 +1,6 @@
 {
   "../../../../~start/default-client-entry.tsx": {
-    "file": "assets/main-BziP_Jk2.js",
+    "file": "assets/main-B2rbLQUA.js",
     "name": "main",
     "src": "../../../../~start/default-client-entry.tsx",
     "isEntry": true,
@@ -17,31 +17,31 @@
     "file": "assets/globals-BuSlskvO.css",
     "src": "/Users/devinda/Projects/auroth/src/styles/globals.css"
   },
-  "_chat-jfx7esAl.js": {
-    "file": "assets/chat-jfx7esAl.js",
+  "_chat-C1A4Xhg_.js": {
+    "file": "assets/chat-C1A4Xhg_.js",
     "name": "chat",
     "imports": [
       "../../../../~start/default-client-entry.tsx"
     ]
   },
   "src/routes/chats.$chatId.tsx?tsr-split=component": {
-    "file": "assets/chats._chatId-DLcreUgo.js",
+    "file": "assets/chats._chatId-Cd7pDsuy.js",
     "name": "chats._chatId",
     "src": "src/routes/chats.$chatId.tsx?tsr-split=component",
     "isDynamicEntry": true,
     "imports": [
       "../../../../~start/default-client-entry.tsx",
-      "_chat-jfx7esAl.js"
+      "_chat-C1A4Xhg_.js"
     ]
   },
   "src/routes/index.tsx?tsr-split=component": {
-    "file": "assets/index-Cm2VaEuw.js",
+    "file": "assets/index-D3sFiOSs.js",
     "name": "index",
     "src": "src/routes/index.tsx?tsr-split=component",
     "isDynamicEntry": true,
     "imports": [
       "../../../../~start/default-client-entry.tsx",
-      "_chat-jfx7esAl.js"
+      "_chat-C1A4Xhg_.js"
     ]
   },
   "src/static/favicon.ico": {
