@@ -55,13 +55,16 @@ importers:
         version: 1.121.34(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tanstack/react-start':
         specifier: ^1.121.35
-        version: 1.121.37(@libsql/client@0.15.9)(@tanstack/react-router@1.121.34(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@vitejs/plugin-react@4.6.0(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)))(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sqlite3@5.1.7)(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))
+        version: 1.121.37(@libsql/client@0.15.9)(@tanstack/react-router@1.121.34(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@vitejs/plugin-react@4.6.0(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)))(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sqlite3@5.1.7)(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))
       '@vercel/functions':
         specifier: ^2.2.2
         version: 2.2.2
       ai:
         specifier: ^4.3.16
         version: 4.3.16(react@19.1.0)(zod@3.25.67)
+      better-sqlite3:
+        specifier: ^12.1.1
+        version: 12.1.1
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -70,10 +73,10 @@ importers:
         version: 2.1.1
       drizzle-orm:
         specifier: ^0.44.2
-        version: 0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7)
+        version: 0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7)
       langchain:
         specifier: ^0.3.29
-        version: 0.3.29(@langchain/core@0.3.61(openai@5.7.0(ws@8.18.2)(zod@3.25.67)))(cheerio@1.1.0)(openai@5.7.0(ws@8.18.2)(zod@3.25.67))(typeorm@0.3.25(better-sqlite3@11.10.0)(ioredis@5.6.1)(pg@8.16.2)(redis@5.5.6)(reflect-metadata@0.2.2)(sqlite3@5.1.7))(ws@8.18.2)
+        version: 0.3.29(@langchain/core@0.3.61(openai@5.7.0(ws@8.18.2)(zod@3.25.67)))(cheerio@1.1.0)(openai@5.7.0(ws@8.18.2)(zod@3.25.67))(typeorm@0.3.25(better-sqlite3@12.1.1)(ioredis@5.6.1)(pg@8.16.2)(redis@5.5.6)(reflect-metadata@0.2.2)(sqlite3@5.1.7))(ws@8.18.2)
       libsql:
         specifier: ^0.5.13
         version: 0.5.13
@@ -109,10 +112,10 @@ importers:
         version: 1.3.4
       typeorm:
         specifier: ^0.3.25
-        version: 0.3.25(better-sqlite3@11.10.0)(ioredis@5.6.1)(pg@8.16.2)(redis@5.5.6)(reflect-metadata@0.2.2)(sqlite3@5.1.7)
+        version: 0.3.25(better-sqlite3@12.1.1)(ioredis@5.6.1)(pg@8.16.2)(redis@5.5.6)(reflect-metadata@0.2.2)(sqlite3@5.1.7)
       vinxi:
         specifier: ^0.5.7
-        version: 0.5.7(@libsql/client@0.15.9)(@types/node@24.0.4)(better-sqlite3@11.10.0)(db0@0.3.2(@libsql/client@0.15.9)(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(sqlite3@5.1.7))(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.30.1)(sqlite3@5.1.7)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)
+        version: 0.5.7(@libsql/client@0.15.9)(@types/node@24.0.4)(better-sqlite3@12.1.1)(db0@0.3.2(@libsql/client@0.15.9)(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(sqlite3@5.1.7))(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.30.1)(sqlite3@5.1.7)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)
       vite:
         specifier: ^7.0.0
         version: 7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)
@@ -2202,6 +2205,10 @@ packages:
 
   better-sqlite3@11.10.0:
     resolution: {integrity: sha512-EwhOpyXiOEL/lKzHz9AW1msWFNzGc/z+LzeB3/jnFJpxu+th2yqvzsSWas1v9jgs9+xiXJcD5A8CJxAG2TaghQ==}
+
+  better-sqlite3@12.1.1:
+    resolution: {integrity: sha512-xjl/TjWLy/6yLa5wkbQSjTgIgSiaEJy3XzjF5TAdiWaAsu/v0OCkYOc6tos+PkM/k4qURN2pFKTsbcG3gk29Uw==}
+    engines: {node: 20.x || 22.x || 23.x || 24.x}
 
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
@@ -7044,9 +7051,9 @@ snapshots:
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
 
-  '@tanstack/react-start-plugin@1.121.37(@libsql/client@0.15.9)(@tanstack/react-router@1.121.34(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@vitejs/plugin-react@4.6.0(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)))(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(sqlite3@5.1.7)(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))':
+  '@tanstack/react-start-plugin@1.121.37(@libsql/client@0.15.9)(@tanstack/react-router@1.121.34(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@vitejs/plugin-react@4.6.0(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)))(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(sqlite3@5.1.7)(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))':
     dependencies:
-      '@tanstack/start-plugin-core': 1.121.37(@libsql/client@0.15.9)(@tanstack/react-router@1.121.34(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(sqlite3@5.1.7)(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))
+      '@tanstack/start-plugin-core': 1.121.37(@libsql/client@0.15.9)(@tanstack/react-router@1.121.34(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(sqlite3@5.1.7)(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))
       '@vitejs/plugin-react': 4.6.0(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))
       vite: 7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)
       zod: 3.25.67
@@ -7094,10 +7101,10 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@tanstack/react-start@1.121.37(@libsql/client@0.15.9)(@tanstack/react-router@1.121.34(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@vitejs/plugin-react@4.6.0(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)))(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sqlite3@5.1.7)(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))':
+  '@tanstack/react-start@1.121.37(@libsql/client@0.15.9)(@tanstack/react-router@1.121.34(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@vitejs/plugin-react@4.6.0(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)))(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sqlite3@5.1.7)(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))':
     dependencies:
       '@tanstack/react-start-client': 1.121.34(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@tanstack/react-start-plugin': 1.121.37(@libsql/client@0.15.9)(@tanstack/react-router@1.121.34(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@vitejs/plugin-react@4.6.0(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)))(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(sqlite3@5.1.7)(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))
+      '@tanstack/react-start-plugin': 1.121.37(@libsql/client@0.15.9)(@tanstack/react-router@1.121.34(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@vitejs/plugin-react@4.6.0(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)))(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(sqlite3@5.1.7)(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))
       '@tanstack/react-start-server': 1.121.34(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tanstack/start-server-functions-client': 1.121.36(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))
       '@tanstack/start-server-functions-server': 1.121.36(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))
@@ -7219,7 +7226,7 @@ snapshots:
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
 
-  '@tanstack/start-plugin-core@1.121.37(@libsql/client@0.15.9)(@tanstack/react-router@1.121.34(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(sqlite3@5.1.7)(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))':
+  '@tanstack/start-plugin-core@1.121.37(@libsql/client@0.15.9)(@tanstack/react-router@1.121.34(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(sqlite3@5.1.7)(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))':
     dependencies:
       '@babel/code-frame': 7.26.2
       '@babel/core': 7.27.4
@@ -7235,7 +7242,7 @@ snapshots:
       babel-dead-code-elimination: 1.0.10
       cheerio: 1.1.0
       h3: 1.13.0
-      nitropack: 2.11.13(@libsql/client@0.15.9)(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(sqlite3@5.1.7)
+      nitropack: 2.11.13(@libsql/client@0.15.9)(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(sqlite3@5.1.7)
       pathe: 2.0.3
       ufo: 1.6.1
       vite: 7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)
@@ -7788,6 +7795,11 @@ snapshots:
       bindings: 1.5.0
       prebuild-install: 7.1.3
 
+  better-sqlite3@12.1.1:
+    dependencies:
+      bindings: 1.5.0
+      prebuild-install: 7.1.3
+
   binary-extensions@2.3.0: {}
 
   binary-search@1.3.6: {}
@@ -8158,11 +8170,11 @@ snapshots:
 
   dayjs@1.11.13: {}
 
-  db0@0.3.2(@libsql/client@0.15.9)(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(sqlite3@5.1.7):
+  db0@0.3.2(@libsql/client@0.15.9)(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(sqlite3@5.1.7):
     optionalDependencies:
       '@libsql/client': 0.15.9
-      better-sqlite3: 11.10.0
-      drizzle-orm: 0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7)
+      better-sqlite3: 12.1.1
+      drizzle-orm: 0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7)
       sqlite3: 5.1.7
 
   debug@2.6.9:
@@ -8311,11 +8323,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7):
+  drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7):
     optionalDependencies:
       '@libsql/client': 0.15.9
       '@opentelemetry/api': 1.9.0
-      better-sqlite3: 11.10.0
+      better-sqlite3: 12.1.1
       pg: 8.16.2
       sqlite3: 5.1.7
 
@@ -9130,7 +9142,7 @@ snapshots:
       dotenv: 16.5.0
       winston: 3.17.0
 
-  langchain@0.3.29(@langchain/core@0.3.61(openai@5.7.0(ws@8.18.2)(zod@3.25.67)))(cheerio@1.1.0)(openai@5.7.0(ws@8.18.2)(zod@3.25.67))(typeorm@0.3.25(better-sqlite3@11.10.0)(ioredis@5.6.1)(pg@8.16.2)(redis@5.5.6)(reflect-metadata@0.2.2)(sqlite3@5.1.7))(ws@8.18.2):
+  langchain@0.3.29(@langchain/core@0.3.61(openai@5.7.0(ws@8.18.2)(zod@3.25.67)))(cheerio@1.1.0)(openai@5.7.0(ws@8.18.2)(zod@3.25.67))(typeorm@0.3.25(better-sqlite3@12.1.1)(ioredis@5.6.1)(pg@8.16.2)(redis@5.5.6)(reflect-metadata@0.2.2)(sqlite3@5.1.7))(ws@8.18.2):
     dependencies:
       '@langchain/core': 0.3.61(openai@5.7.0(ws@8.18.2)(zod@3.25.67))
       '@langchain/openai': 0.5.15(@langchain/core@0.3.61(openai@5.7.0(ws@8.18.2)(zod@3.25.67)))(ws@8.18.2)
@@ -9146,7 +9158,7 @@ snapshots:
       zod: 3.25.67
     optionalDependencies:
       cheerio: 1.1.0
-      typeorm: 0.3.25(better-sqlite3@11.10.0)(ioredis@5.6.1)(pg@8.16.2)(redis@5.5.6)(reflect-metadata@0.2.2)(sqlite3@5.1.7)
+      typeorm: 0.3.25(better-sqlite3@12.1.1)(ioredis@5.6.1)(pg@8.16.2)(redis@5.5.6)(reflect-metadata@0.2.2)(sqlite3@5.1.7)
     transitivePeerDependencies:
       - openai
       - ws
@@ -9520,7 +9532,7 @@ snapshots:
       p-wait-for: 5.0.2
       qs: 6.14.0
 
-  nitropack@2.11.13(@libsql/client@0.15.9)(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(sqlite3@5.1.7):
+  nitropack@2.11.13(@libsql/client@0.15.9)(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(sqlite3@5.1.7):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.4.0
       '@netlify/functions': 3.1.10(encoding@0.1.13)(rollup@4.44.0)
@@ -9542,7 +9554,7 @@ snapshots:
       cookie-es: 2.0.0
       croner: 9.1.0
       crossws: 0.3.5
-      db0: 0.3.2(@libsql/client@0.15.9)(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(sqlite3@5.1.7)
+      db0: 0.3.2(@libsql/client@0.15.9)(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(sqlite3@5.1.7)
       defu: 6.1.4
       destr: 2.0.5
       dot-prop: 9.0.0
@@ -9588,7 +9600,7 @@ snapshots:
       unenv: 2.0.0-rc.18
       unimport: 5.0.1
       unplugin-utils: 0.2.4
-      unstorage: 1.16.0(db0@0.3.2(@libsql/client@0.15.9)(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(sqlite3@5.1.7))(ioredis@5.6.1)
+      unstorage: 1.16.0(db0@0.3.2(@libsql/client@0.15.9)(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(sqlite3@5.1.7))(ioredis@5.6.1)
       untyped: 2.0.0
       unwasm: 0.3.9
       youch: 4.1.0-beta.8
@@ -10722,7 +10734,7 @@ snapshots:
 
   type-fest@4.41.0: {}
 
-  typeorm@0.3.25(better-sqlite3@11.10.0)(ioredis@5.6.1)(pg@8.16.2)(redis@5.5.6)(reflect-metadata@0.2.2)(sqlite3@5.1.7):
+  typeorm@0.3.25(better-sqlite3@12.1.1)(ioredis@5.6.1)(pg@8.16.2)(redis@5.5.6)(reflect-metadata@0.2.2)(sqlite3@5.1.7):
     dependencies:
       '@sqltools/formatter': 1.2.5
       ansis: 3.17.0
@@ -10740,7 +10752,7 @@ snapshots:
       uuid: 11.1.0
       yargs: 17.7.2
     optionalDependencies:
-      better-sqlite3: 11.10.0
+      better-sqlite3: 12.1.1
       ioredis: 5.6.1
       pg: 8.16.2
       redis: 5.5.6
@@ -10841,7 +10853,7 @@ snapshots:
       picomatch: 4.0.2
       webpack-virtual-modules: 0.6.2
 
-  unstorage@1.16.0(db0@0.3.2(@libsql/client@0.15.9)(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(sqlite3@5.1.7))(ioredis@5.6.1):
+  unstorage@1.16.0(db0@0.3.2(@libsql/client@0.15.9)(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(sqlite3@5.1.7))(ioredis@5.6.1):
     dependencies:
       anymatch: 3.1.3
       chokidar: 4.0.3
@@ -10852,7 +10864,7 @@ snapshots:
       ofetch: 1.4.1
       ufo: 1.6.1
     optionalDependencies:
-      db0: 0.3.2(@libsql/client@0.15.9)(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(sqlite3@5.1.7)
+      db0: 0.3.2(@libsql/client@0.15.9)(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(sqlite3@5.1.7)
       ioredis: 5.6.1
 
   untun@0.1.3:
@@ -10926,7 +10938,7 @@ snapshots:
 
   validate.io-function@1.0.2: {}
 
-  vinxi@0.5.7(@libsql/client@0.15.9)(@types/node@24.0.4)(better-sqlite3@11.10.0)(db0@0.3.2(@libsql/client@0.15.9)(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(sqlite3@5.1.7))(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.30.1)(sqlite3@5.1.7)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0):
+  vinxi@0.5.7(@libsql/client@0.15.9)(@types/node@24.0.4)(better-sqlite3@12.1.1)(db0@0.3.2(@libsql/client@0.15.9)(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(sqlite3@5.1.7))(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.30.1)(sqlite3@5.1.7)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0):
     dependencies:
       '@babel/core': 7.27.4
       '@babel/plugin-syntax-jsx': 7.27.1(@babel/core@7.27.4)
@@ -10947,7 +10959,7 @@ snapshots:
       hookable: 5.5.3
       http-proxy: 1.18.1
       micromatch: 4.0.8
-      nitropack: 2.11.13(@libsql/client@0.15.9)(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(sqlite3@5.1.7)
+      nitropack: 2.11.13(@libsql/client@0.15.9)(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(encoding@0.1.13)(sqlite3@5.1.7)
       node-fetch-native: 1.6.6
       path-to-regexp: 6.3.0
       pathe: 1.1.2
@@ -10959,7 +10971,7 @@ snapshots:
       ufo: 1.6.1
       unctx: 2.4.1
       unenv: 1.10.0
-      unstorage: 1.16.0(db0@0.3.2(@libsql/client@0.15.9)(better-sqlite3@11.10.0)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@11.10.0)(pg@8.16.2)(sqlite3@5.1.7))(sqlite3@5.1.7))(ioredis@5.6.1)
+      unstorage: 1.16.0(db0@0.3.2(@libsql/client@0.15.9)(better-sqlite3@12.1.1)(drizzle-orm@0.44.2(@libsql/client@0.15.9)(@opentelemetry/api@1.9.0)(better-sqlite3@12.1.1)(pg@8.16.2)(sqlite3@5.1.7))(sqlite3@5.1.7))(ioredis@5.6.1)
       vite: 6.3.5(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)
       zod: 3.25.67
     transitivePeerDependencies:
