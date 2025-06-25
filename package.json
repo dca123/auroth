@@ -29,7 +29,7 @@
     "@t3-oss/env-core": "^0.13.8",
     "@tailwindcss/postcss": "^4.1.10",
     "@tanstack/react-router": "^1.121.34",
-    "@tanstack/react-start": "^1.121.35",
+    "@tanstack/react-start": "^1.121.37",
     "@vercel/functions": "^2.2.2",
     "ai": "^4.3.16",
     "better-sqlite3": "^12.1.1",
