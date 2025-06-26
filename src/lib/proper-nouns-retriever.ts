@@ -8,10 +8,11 @@ import { tool } from "@langchain/core/tools";
 import { z } from "zod";
 import { query } from "./sql-agent-ai";
 import { dotaDbUrl } from "env";
+import driver from "@libsql/sqlite3";
 
 const datasource = new DataSource({
   type: "sqlite",
-  driver: require("@libsql/sqlite3"),
+  driver,
   flags: 0x00000040, // this is required to make it work in TypeORM
   database: dotaDbUrl,
 });

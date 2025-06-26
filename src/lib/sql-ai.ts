@@ -10,10 +10,11 @@ import { QuerySqlTool } from "langchain/tools/sql";
 import { StateGraph } from "@langchain/langgraph";
 import { BaseMessage, HumanMessage } from "@langchain/core/messages";
 import { dotaDbUrl, env } from "env";
+import driver from "@libsql/sqlite3";
 
 const datasource = new DataSource({
   type: "sqlite",
-  driver: require("@libsql/sqlite3"),
+  driver,
   flags: 0x00000040, // this is required to make it work in TypeORM
   database: dotaDbUrl,
 });
