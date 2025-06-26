@@ -14,6 +14,6 @@ export default defineConfig({
   plugins: [
     tsConfigPaths(),
     // tanstackStart(),
-    tanstackStart({ target: "vercel" }),
+    tanstackStart({ target: "netlify" }),
   ],
 });
