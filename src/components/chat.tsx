@@ -8,7 +8,7 @@ import { useAutoResume } from "@/hooks/use-auto-resume";
 
 export function Chat(props: {
   chat?: Awaited<ReturnType<typeof getChat>>;
-  id: string;
+  id?: string;
 }) {
   const {
     messages,

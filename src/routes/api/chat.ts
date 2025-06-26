@@ -14,8 +14,7 @@ import {
 } from "@/lib/chat-store";
 import { query } from "@/lib/sql-agent-ai";
 import { transformMessages } from "@/lib/ai-sdk-to-langchain-message";
-import { createServerFileRoute } from '@tanstack/react-start/server'
-
+import { createServerFileRoute } from "@tanstack/react-start/server";
 
 //@ts-expect-error
 export const ServerRoute = createServerFileRoute("/api/chat").methods({
@@ -65,7 +64,9 @@ export const ServerRoute = createServerFileRoute("/api/chat").methods({
       waitUntil,
     });
     const chatId = searchParams.get("chatId");
-
+    if (chatId === "new") {
+      return new Response("all good");
+    }
     if (!chatId) {
       console.log("id is required");
       return new Response("id is required", { status: 400 });

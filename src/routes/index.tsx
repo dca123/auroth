@@ -6,5 +6,5 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  return <Chat id=""/>;
+  return <Chat id="new" />;
 }
