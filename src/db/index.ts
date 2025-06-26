@@ -7,3 +7,10 @@ export const db = drizzle({
     authToken: env.TURSO_KEY,
   },
 });
+
+export const dotaDB = drizzle({
+  connection: {
+    url: env.DOTA_DB_URL,
+    authToken: env.DOTA_DB_TOKEN,
+  },
+});

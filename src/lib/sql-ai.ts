@@ -5,7 +5,7 @@ import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { Annotation, messagesStateReducer } from "@langchain/langgraph";
 import { z } from "zod";
 import { DataSource } from "typeorm";
-import { SqlDatabase } from "langchain/sql_db";
+import { SqlDatabase } from "@/lib/sql-database";
 import { QuerySqlTool } from "langchain/tools/sql";
 import { StateGraph } from "@langchain/langgraph";
 import { BaseMessage, HumanMessage } from "@langchain/core/messages";
@@ -14,7 +14,7 @@ import driver from "@libsql/sqlite3";
 
 const datasource = new DataSource({
   type: "sqlite",
-  driver,
+  driver: require("@libsql/sqlite3"),
   flags: 0x00000040, // this is required to make it work in TypeORM
   database: dotaDbUrl,
 });

@@ -1,20 +1,27 @@
 import { ChatOpenAI } from "@langchain/openai";
 import { SqlToolkit } from "langchain/agents/toolkits/sql";
-import { SqlDatabase } from "langchain/sql_db";
-import { DataSource } from "typeorm";
 import { pull } from "langchain/hub";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import { BaseMessage } from "@langchain/core/messages";
 import { retrieverTool } from "./proper-nouns-retriever";
-
-const datasource = new DataSource({
-  type: "sqlite",
-  database: "dota.db",
-});
+import { SqlDatabase } from "./sql-database";
+import { dotaDB } from "@/db";
 
 const db = await SqlDatabase.fromDataSourceParams({
-  appDataSource: datasource,
+  appDataSource: {
+    options: {
+      schema: "public",
+      type: "sqlite",
+    },
+    query: async (sql) => {
+      console.log("query", sql);
+      const result = await dotaDB.run(sql);
+      console.log("db result", result);
+      console.log("\n");
+      return result.rows;
+    },
+  },
 });
 
 const llm = new ChatOpenAI({
