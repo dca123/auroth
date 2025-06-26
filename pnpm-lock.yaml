@@ -95,6 +95,9 @@ importers:
       resumable-stream:
         specifier: ^2.2.1
         version: 2.2.1
+      sqlite3:
+        specifier: ^5.1.7
+        version: 5.1.7
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -7774,8 +7777,7 @@ snapshots:
 
   chownr@1.1.4: {}
 
-  chownr@2.0.0:
-    optional: true
+  chownr@2.0.0: {}
 
   chownr@3.0.0: {}
 
@@ -8459,7 +8461,6 @@ snapshots:
   fs-minipass@2.1.0:
     dependencies:
       minipass: 3.3.6
-    optional: true
 
   fs.realpath@1.0.0:
     optional: true
@@ -9200,10 +9201,8 @@ snapshots:
   minipass@3.3.6:
     dependencies:
       yallist: 4.0.0
-    optional: true
 
-  minipass@5.0.0:
-    optional: true
+  minipass@5.0.0: {}
 
   minipass@7.1.2: {}
 
@@ -9211,7 +9210,6 @@ snapshots:
     dependencies:
       minipass: 3.3.6
       yallist: 4.0.0
-    optional: true
 
   minizlib@3.0.2:
     dependencies:
@@ -9219,8 +9217,7 @@ snapshots:
 
   mkdirp-classic@0.5.3: {}
 
-  mkdirp@1.0.4:
-    optional: true
+  mkdirp@1.0.4: {}
 
   mkdirp@3.0.1: {}
 
@@ -10224,7 +10221,6 @@ snapshots:
     transitivePeerDependencies:
       - bluebird
       - supports-color
-    optional: true
 
   ssri@8.0.1:
     dependencies:
@@ -10352,7 +10348,6 @@ snapshots:
       minizlib: 2.1.2
       mkdirp: 1.0.4
       yallist: 4.0.0
-    optional: true
 
   tar@7.4.3:
     dependencies:
@@ -10832,8 +10827,7 @@ snapshots:
 
   yallist@3.1.1: {}
 
-  yallist@4.0.0:
-    optional: true
+  yallist@4.0.0: {}
 
   yallist@5.0.0: {}
 
