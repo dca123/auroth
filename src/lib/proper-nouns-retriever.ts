@@ -7,10 +7,13 @@ import { MemoryVectorStore } from "langchain/vectorstores/memory";
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
 import { query } from "./sql-agent-ai";
+import { dotaDbUrl } from "env";
 
 const datasource = new DataSource({
   type: "sqlite",
-  database: "dota.db",
+  driver: require("@libsql/sqlite3"),
+  flags: 0x00000040, // this is required to make it work in TypeORM
+  database: dotaDbUrl,
 });
 
 const db = await SqlDatabase.fromDataSourceParams({

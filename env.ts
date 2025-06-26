@@ -8,6 +8,8 @@ export const env = createEnv({
     TURSO_URL: z.string().min(1),
     REDIS_URL: z.string().min(1),
     POSTGRES_DATABASE_URL: z.string().min(1),
+    DOTA_DB_URL: z.string().url(),
+    DOTA_DB_TOKEN: z.string().jwt(),
   },
 
   /**
@@ -39,3 +41,5 @@ export const env = createEnv({
    */
   emptyStringAsUndefined: true,
 });
+
+export const dotaDbUrl = `${env.DOTA_DB_URL}?authToken=${env.DOTA_DB_TOKEN}`;
