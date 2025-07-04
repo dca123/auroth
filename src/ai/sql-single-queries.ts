@@ -108,6 +108,7 @@ export async function query(
     return new Error("There is no last message / question from the user");
   }
   const question = lastMessage.content.toString();
+  console.log("question", question);
   const inputs = {
     question,
     answer: undefined,

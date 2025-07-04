@@ -1,5 +1,10 @@
 import { query } from "@/ai/sql-single-queries";
-import { appendChatMessages, getChat, storeChat } from "@/lib/chat-store";
+import {
+  appendChatMessages,
+  getChat,
+  simpleChatMessageToLangChainMessage,
+  storeChat,
+} from "@/lib/chat-store";
 import { randomIdGenerator } from "@/lib/random";
 import { AIMessage, ChatMessage, HumanMessage } from "@langchain/core/messages";
 import { createServerFileRoute } from "@tanstack/react-start/server";
@@ -16,19 +21,24 @@ export const ServerRoute = createServerFileRoute("/api/chat").methods({
     if (chat instanceof Error) {
       throw chat;
     }
+    const chatMessages = simpleChatMessageToLangChainMessage(chat.messages);
     const messages = appendChatMessages({
-      messages: chat.messages,
-      newMessage: new HumanMessage({ content: message }),
+      messages: chatMessages,
+      newMessage: new ChatMessage({
+        role: "assistant",
+        content: message,
+      }),
     });
+
+    console.log(messages);
 
     const result = await query(chatId, messages, {
       onCompleted: async (message) => {
         const newMessages = appendChatMessages({
           messages,
           newMessage: new ChatMessage({
-            id: "",
             content: message,
-            role: "user",
+            role: "assistant",
           }),
         });
         await storeChat(chatId, newMessages);

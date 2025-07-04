@@ -81,7 +81,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       </head>
       <body className="bg-stone-50">
         <SidebarProvider>
-          <AppSidebar />
+          {/* <AppSidebar /> */}
           <main className="flex flex-col w-full p-2">
             <div className="flex flex-row space-x-1 items-center">
               <SidebarTrigger />

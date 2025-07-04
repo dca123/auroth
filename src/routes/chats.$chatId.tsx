@@ -1,21 +1,22 @@
 import { Chat } from "@/components/Chat";
-import { appDb } from "@/db";
-import { chats } from "@/db/schema/chats";
+import { getChat } from "@/lib/chat-store";
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { eq } from "drizzle-orm";
 
-export const getChat = createServerFn()
+export const getChatServerFn = createServerFn()
   .validator((data: string) => data)
   .handler(async (ctx) => {
-    const chat = await appDb.select().from(chats).where(eq(chats.id, ctx.data));
+    const chat = await getChat(ctx.data);
+    if (chat instanceof Error) {
+      throw chat;
+    }
     return chat;
   });
 
 export const Route = createFileRoute("/chats/$chatId")({
   component: Home,
   loader: async ({ params }) =>
-    getChat({
+    getChatServerFn({
       data: params.chatId,
     }),
 });

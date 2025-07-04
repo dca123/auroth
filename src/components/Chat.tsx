@@ -1,25 +1,22 @@
 import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
-import { getChat } from "@/routes/chats.$chatId";
 import { FormEvent, useRef, useState } from "react";
 import { randomIdGenerator } from "@/lib/random";
-import { AIMessage, BaseMessage, HumanMessage } from "@langchain/core/messages";
+import { getChat } from "@/lib/chat-store";
+import { SimpleChatMessage } from "@/db/schema/chats";
+import { getChatServerFn } from "@/routes/chats.$chatId";
 
 const createMessaageId = randomIdGenerator(10);
 
 export function Chat(props: {
-  chat?: Awaited<ReturnType<typeof getChat>>;
+  chat?: Awaited<ReturnType<typeof getChatServerFn>>;
   id?: string;
 }) {
   const navigate = useNavigate();
-  console.log({
-    id: props.id,
-    initialMessages: props.chat[0].messages,
-  });
   const { submit, messages, input, setInput, isStreaming } = useChat({
     id: props.id,
-    initialMessages: props.chat[0].messages,
+    initialMessages: props.chat?.messages,
   });
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -49,11 +46,11 @@ export function Chat(props: {
 
 type UseChatProps = {
   id?: string;
-  initialMessages?: BaseMessage[];
+  initialMessages?: SimpleChatMessage[];
 };
 
 function useChat(props: UseChatProps) {
-  const [messages, setMessages] = useState<BaseMessage[]>(
+  const [messages, setMessages] = useState<SimpleChatMessage[]>(
     props.initialMessages ?? [],
   );
   const [input, setInput] = useState("");
@@ -62,10 +59,11 @@ function useChat(props: UseChatProps) {
   const submit = async () => {
     setMessages((messages) => [
       ...messages,
-      new HumanMessage({
+      {
         id: createMessaageId(),
+        role: "user",
         content: input,
-      }),
+      },
     ]);
     setInput("");
     setIsStreaming(true);
@@ -98,18 +96,19 @@ function useChat(props: UseChatProps) {
           firstChunkRef = false;
           return [
             ...prevMessages,
-            new AIMessage({
+            {
               id,
+              role: "assistant",
               content: value,
-            }),
+            },
           ];
         }
         return [
           ...prevMessages.slice(0, -1),
-          new AIMessage({
+          {
             ...lastMessage,
             content: lastMessage.content + value,
-          }),
+          },
         ];
       });
       return reader.read().then(pump);
@@ -118,12 +117,12 @@ function useChat(props: UseChatProps) {
   return { messages, submit, input, setInput, isStreaming };
 }
 
-function ChatMessage(props: { message: BaseMessage }) {
+function ChatMessage(props: { message: SimpleChatMessage }) {
   return (
     <div
       className={cn(
         "p-3 rounded-xl w-fit",
-        props.message instanceof HumanMessage && "self-end bg-card",
+        props.message.role === "user" && "self-end bg-card",
       )}
     >
       <p>{props.message.content.toString()}</p>

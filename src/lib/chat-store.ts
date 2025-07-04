@@ -2,18 +2,25 @@ import { appDb } from "@/db";
 import { chats, SimpleChatMessage } from "@/db/schema/chats";
 import { eq } from "drizzle-orm";
 import { streams } from "@/db/schema/streams";
+import { ChatMessage } from "@langchain/core/messages";
 
 export function appendChatMessages({
   messages,
   newMessage,
 }: {
-  messages: SimpleChatMessage[];
-  newMessage: SimpleChatMessage;
+  messages: ChatMessage[];
+  newMessage: ChatMessage;
 }) {
   return messages.concat(newMessage);
 }
 
-export async function storeChat(id: string, messages: SimpleChatMessage[]) {
+export function simpleChatMessageToLangChainMessage(
+  messages: SimpleChatMessage[],
+) {
+  return messages.map((m) => new ChatMessage(m.content.toString(), m.role));
+}
+
+export async function storeChat(id: string, messages: ChatMessage[]) {
   const r = await appDb
     .insert(chats)
     .values({ id, messages })
