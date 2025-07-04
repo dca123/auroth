@@ -32,7 +32,7 @@ const getChatIds = createServerFn().handler(async () => {
     })
     .from(chats)
     .orderBy(desc(chats.createdAt))
-    .limit(10);
+    .limit(20);
   return ids;
 });
 
@@ -112,7 +112,7 @@ function AppSidebar() {
             <SidebarMenuItem key={c.id}>
               <SidebarMenuButton asChild>
                 <a href={`/chats/${c.id}`}>
-                  {truncateString(c.messages.at(0)?.content as string, 25)}
+                  {truncateString(c.messages.at(0)?.content as string, 35)}
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
