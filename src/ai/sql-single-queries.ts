@@ -5,7 +5,11 @@ import { Annotation, messagesStateReducer } from "@langchain/langgraph";
 import { z } from "zod";
 import { QuerySqlTool } from "langchain/tools/sql";
 import { StateGraph } from "@langchain/langgraph";
-import { BaseMessage, HumanMessage } from "@langchain/core/messages";
+import {
+  AIMessageChunk,
+  BaseMessage,
+  HumanMessage,
+} from "@langchain/core/messages";
 import { aiDb } from "./ai-db";
 import {
   StreamEvent,
@@ -142,7 +146,7 @@ export async function query(
   return stream.pipeThrough(streamTransformer);
 }
 type Callbacks = {
-  onCompleted?: (message: string) => void;
+  onCompleted?: (message: AIMessageChunk) => void;
 };
 
 function triggerCallbacks(
@@ -150,10 +154,10 @@ function triggerCallbacks(
   callbacks: Callbacks,
 ) {
   const reader = stream.getReader();
-  let output = "";
+  let output = undefined;
   reader.read().then(function pump({ done, value }) {
     if (done) {
-      if (callbacks.onCompleted !== undefined) {
+      if (callbacks.onCompleted !== undefined && output !== undefined) {
         callbacks.onCompleted(output);
       }
       return;
@@ -163,7 +167,7 @@ function triggerCallbacks(
       value.event === "on_chat_model_end" &&
       value.tags?.includes("final_node")
     ) {
-      output = value.data.output.content;
+      output = value.data.output;
     }
     return reader.read().then(pump);
   });

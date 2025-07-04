@@ -112,7 +112,7 @@ function AppSidebar() {
             <SidebarMenuItem key={c.id}>
               <SidebarMenuButton asChild>
                 <a href={`/chats/${c.id}`}>
-                  {truncateString(c.messages.at(0)?.content as string, 35)}
+                  {truncateString(c.messages.at(0)?.data.content as string, 35)}
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>

@@ -1,22 +1,37 @@
 import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useState } from "react";
 import { randomIdGenerator } from "@/lib/random";
-import { getChat } from "@/lib/chat-store";
-import { SimpleChatMessage } from "@/db/schema/chats";
 import { getChatServerFn } from "@/routes/chats.$chatId";
 
 const createMessaageId = randomIdGenerator(10);
+type SimpleChatMessage = {
+  id: string;
+  role: string;
+  content: string;
+};
 
 export function Chat(props: {
   chat?: Awaited<ReturnType<typeof getChatServerFn>>;
   id?: string;
 }) {
   const navigate = useNavigate();
-  const { submit, messages, input, setInput, isStreaming } = useChat({
+  console.log({
     id: props.id,
     initialMessages: props.chat?.messages,
+  });
+  props.chat?.messages[0].data.role;
+  const { submit, messages, input, setInput, isStreaming } = useChat({
+    id: props.id,
+    initialMessages: props.chat?.messages.map(
+      (m) =>
+        ({
+          id: m.data.id ?? createMessaageId(),
+          content: m.data.content,
+          role: m.data.role,
+        }) satisfies SimpleChatMessage,
+    ),
   });
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -107,6 +122,7 @@ function useChat(props: UseChatProps) {
           ...prevMessages.slice(0, -1),
           {
             ...lastMessage,
+            role: "assistant",
             content: lastMessage.content + value,
           },
         ];
