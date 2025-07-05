@@ -81,7 +81,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       </head>
       <body className="bg-stone-50">
         <SidebarProvider>
-          {/* <AppSidebar /> */}
+          <AppSidebar />
           <main className="flex flex-col w-full p-2">
             <div className="flex flex-row space-x-1 items-center">
               <SidebarTrigger />
@@ -112,7 +112,7 @@ function AppSidebar() {
             <SidebarMenuItem key={c.id}>
               <SidebarMenuButton asChild>
                 <a href={`/chats/${c.id}`}>
-                  {truncateString(c.messages.at(0)?.data.content as string, 35)}
+                  {truncateString(c.messages.at(0)?.data.content as string, 30)}
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
