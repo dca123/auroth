@@ -4,7 +4,7 @@ import { pull } from "langchain/hub";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import { BaseMessage } from "@langchain/core/messages";
-import { retrieverTool } from "./proper-nouns-retriever";
+import { properNounRetrieverTool } from "./proper-nouns-retriever";
 import { aiDb } from "./ai-db";
 
 const llm = new ChatOpenAI({
@@ -13,7 +13,7 @@ const llm = new ChatOpenAI({
 });
 
 const sqlToolkit = new SqlToolkit(aiDb, llm);
-const tools = sqlToolkit.getTools().concat(retrieverTool);
+const tools = sqlToolkit.getTools().concat(properNounRetrieverTool);
 
 const systemPromptTemplate = await pull<ChatPromptTemplate>(
   "langchain-ai/sql-agent-system-prompt",

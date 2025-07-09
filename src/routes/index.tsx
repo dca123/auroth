@@ -1,4 +1,5 @@
 // src/routes/index.tsx
+import { Chat } from "@/components/Chat";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
@@ -6,5 +7,5 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  return <button type="button"></button>;
+  return <Chat />;
 }

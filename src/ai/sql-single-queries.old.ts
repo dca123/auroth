@@ -19,7 +19,6 @@ import {
   properNounVectorStore,
   properNounRetrieverTool,
 } from "./proper-nouns-retriever";
-import { dotaDbUrl } from "env";
 
 const InputStateAnnotation = Annotation.Root({
   question: Annotation<string>,
@@ -121,57 +120,28 @@ const timestampToDateTool = tool(
   },
 );
 
-const sqlTool = tool(
-  async (input) => {
-    const result = await questionToAnswerGraph.invoke({
-      question: input.question,
-    });
-    const answer = result.answer;
-    return answer;
-  },
-  {
-    name: "question_to_sql",
-    description:
-      "Given a question in natural language, converts it to an sql query, executes it and returns an answer",
-    schema: z.object({
-      question: z.string(),
-    }),
-  },
-);
+const sqlTool = tool((input) => {}, {
+  name: "question_to_sql",
+  description:
+    "Given a question, converts it to an sql query, executes it and returns an answer",
+  schema: z.object({
+    question: z.string(),
+  }),
+});
 
 const agentModel = new ChatOpenAI({
   model: "o4-mini",
   temperature: 1,
 });
-const tools = [timestampToDateTool, properNounRetrieverTool, sqlTool];
+const tools = [timestampToDateTool, properNounRetrieverTool];
 const prefix = `You are an expert dota 2 analyst.`;
-const suffix = `
-When filtering on a proper noun (such as a hero name like Axe or Zeus, a game item like Claymore or Morbid Mask, a player name like Boxi or Ace, or a team name like 9Pandas or PARIVISION), you MUST always use the '${properNounRetrieverTool.name}' tool to look up the correct value. Never guess or infer the proper noun—always use this tool. The 'Content' attribute contains the proper noun itself; the 'metadata' attribute indicates which table and column it originates from.
-
-To answer a user's question:
-1. Break down complex questions into simpler sub-questions if necessary.
-2. For each sub-question, ask the '${sqlTool.name}' tool using natural language—either the user's exact wording or a clearly rephrased version. Do not use SQL syntax; always phrase your inputs as natural language questions.
-3. **Important:** Each sub-question sent to the '${sqlTool.name}' tool must be fully self-contained. Do not use pronouns or references to previous answers (e.g., "that player," "them," "it"). Always specify all necessary information explicitly in each sub-question.
-4. Combine all tool responses to generate your final answer.
-
-The following database schema is provided to help you understand what information is available and any constraints when forming your questions for the '${sqlTool.name}' tool:
-${await aiDb.getTableInfo()}
-`;
-
-const systemMessage = prefix + suffix;
+const systemMessage = prefix;
 
 const agent = createReactAgent({
-  llm: agentModel,
+  llm,
   tools,
   prompt: systemMessage,
 });
-export async function queryAgent(messages: BaseMessage[]) {
-  const result = await agent.invoke({
-    messages,
-  });
-  return result;
-}
-
 export async function query(
   chatId: string,
   messages: BaseMessage[],

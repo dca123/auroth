@@ -7,7 +7,8 @@
     "dev": "vite dev",
     "build": "vite build && tsc --noEmit",
     "start": "node .output/server/index.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "eval:dev": "evalite watch "
   },
   "packageManager": "pnpm@10.12.4",
   "dependencies": {
@@ -41,11 +42,16 @@
     "zod": "^3.25.67"
   },
   "devDependencies": {
+    "@ai-sdk/openai": "^1.3.22",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "ai": "^4.3.16",
+    "autoevals": "^0.0.130",
     "drizzle-kit": "^0.31.3",
+    "evalite": "^0.11.4",
     "tw-animate-css": "^1.3.4",
     "typescript": "^5.8.3",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.4"
   }
 }

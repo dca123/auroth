@@ -21,7 +21,7 @@ export const properNounVectorStore = new LibSQLVectorStore(embeddings, {
 });
 
 const retriever = properNounVectorStore.asRetriever(5);
-export const retrieverTool = tool(
+export const properNounRetrieverTool = tool(
   async (opts) => {
     const result = await retriever.invoke(opts.query);
     return result

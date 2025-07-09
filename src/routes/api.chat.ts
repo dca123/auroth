@@ -2,6 +2,7 @@ import { query } from "@/ai/sql-single-queries";
 import { appendChatMessages, getChat, storeChat } from "@/lib/chat-store";
 import { randomIdGenerator } from "@/lib/random";
 import {
+  BaseMessage,
   ChatMessage,
   mapStoredMessagesToChatMessages,
 } from "@langchain/core/messages";
@@ -15,20 +16,30 @@ export const ServerRoute = createServerFileRoute("/api/chat").methods({
       id?: string;
       message: string;
     };
-    const chatId = id ?? createChatId();
-    const chat = await getChat(chatId);
-    if (chat instanceof Error) {
-      throw chat;
+    let chatId = id;
+    let messages: BaseMessage[] = [];
+    if (chatId !== undefined) {
+      const chat = await getChat(chatId);
+      if (chat instanceof Error) {
+        throw chat;
+      }
+      const chatMessages = mapStoredMessagesToChatMessages(chat.messages);
+      const messages = appendChatMessages({
+        messages: chatMessages,
+        newMessage: new ChatMessage({
+          role: "user",
+          content: message,
+        }),
+      });
+    } else {
+      chatId = createChatId();
+      messages.push(
+        new ChatMessage({
+          role: "user",
+          content: message,
+        }),
+      );
     }
-    const chatMessages = mapStoredMessagesToChatMessages(chat.messages);
-    const messages = appendChatMessages({
-      messages: chatMessages,
-      newMessage: new ChatMessage({
-        role: "user",
-        content: message,
-      }),
-    });
-    console.log("1", messages.at(-1)?.id);
 
     const result = await query(chatId, messages, {
       onCompleted: async (message) => {
