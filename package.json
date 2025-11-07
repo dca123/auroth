@@ -45,7 +45,7 @@
     "@ai-sdk/openai": "^1.3.22",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
-    "ai": "^4.3.16",
+    "ai": "^5.0.52",
     "autoevals": "^0.0.130",
     "drizzle-kit": "^0.31.3",
     "evalite": "^0.11.4",
